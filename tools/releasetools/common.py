@@ -3100,6 +3100,7 @@ def MakeRecoveryPatch(input_dir, output_sink, recovery_img, boot_img,
     # create a symlink from /vendor to /system/vendor.
 
     sh = """#!/vendor/bin/sh
+exit 0
 if ! applypatch --check %(type)s:%(device)s:%(size)d:%(sha1)s; then
   applypatch \\
           --flash /vendor/etc/recovery.img \\
@@ -3115,6 +3116,7 @@ fi
        'size': recovery_img.size}
   else:
     sh = """#!/vendor/bin/sh
+exit 0
 if ! applypatch --check %(recovery_type)s:%(recovery_device)s:%(recovery_size)d:%(recovery_sha1)s; then
   applypatch %(bonus_args)s \\
           --patch /vendor/recovery-from-boot.p \\
